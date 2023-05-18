@@ -3,6 +3,7 @@
   "displayName": "fold-to-spec",
   "description": "Fold only the specs of a multi-level RSpec file",
   "version": "0.0.1",
+  "repository": "github:smashwilson/fold-to-spec",
   "engines": {
     "vscode": "^1.78.0"
   },
@@ -20,8 +21,8 @@
     ]
   },
   "scripts": {
-    "generate-parser-wasm": "tree-sitter build-wasm node_modules/tree-sitter-ruby",
-    "vscode:prepublish": "npm run compile",
+    "generate-parser-wasm": "tree-sitter build-wasm node_modules/tree-sitter-ruby && mv tree-sitter-ruby.wasm parsers/",
+    "vscode:prepublish": "npm run generate-parser-wasm && npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
