@@ -14,8 +14,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "fold-to-spec.helloWorld",
-        "title": "Hello World"
+        "command": "fold-to-spec.fold",
+        "title": "Fold To Spec"
       }
     ]
   },
