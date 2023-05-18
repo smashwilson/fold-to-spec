@@ -40,7 +40,9 @@ class RSpecHandler {
 			}
 		}
 		for (const methodNode of tree.rootNode.descendantsOfType('method')) {
-			foldPoints.push(methodNode.startPosition.row)
+			if (this.isMultiline(methodNode)) {
+				foldPoints.push(methodNode.startPosition.row)
+			}
 		}
 		return foldPoints
 	}
@@ -59,7 +61,15 @@ class RSpecHandler {
 		return this.parser
 	}
 
+	private isMultiline(node: Parser.SyntaxNode): boolean {
+		return node.startPosition.row !== node.endPosition.row
+	}
+
 	private shouldFoldCall(callNode: Parser.SyntaxNode): boolean {
+		if (!this.isMultiline(callNode)) {
+			return false
+		}
+
 		const methodName = callNode.children.find(node => node.type === 'identifier')
 		if (!methodName) {
 			return false
